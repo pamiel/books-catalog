@@ -10,7 +10,16 @@ on:
 jobs:
   code-analysis:
     runs-on: ubuntu-latest
+
     steps:
+    - name: Checkout sources
+      uses: actions/checkout@v2
+
+    - name: Configure Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
     - name: Code linter
       run: |
         python -m pip install --upgrade pip
