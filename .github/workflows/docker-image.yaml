@@ -38,13 +38,10 @@ jobs:
     - name: Checkout sources
       uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag docker.io/pamiel/books-catalog:${{ env.MICRO_SERVICE_VERSION }}-${GITHUB_RUN_NUMBER}
+      run: docker build . --file Dockerfile --tag docker.io/pamiel/books-catalog:${DOCKER_IMAGE_TAG}
     - name: Run server
       run: |
-        echo ${{ env.DOCKER_IMAGE_TAG }}
-        echo ${{ env.MICRO_SERVICE_VERSION }}-${GITHUB_RUN_NUMBER}
-        echo ${MICRO_SERVICE_VERSION}-${GITHUB_RUN_NUMBER}
-        docker run --rm -p 9990:9990 -d docker.io/pamiel/books-catalog:${{ env.MICRO_SERVICE_VERSION }}-${GITHUB_RUN_NUMBER}
+        docker run --rm -p 9990:9990 -d docker.io/pamiel/books-catalog:${DOCKER_IMAGE_TAG}
         sleep 1
     - name: Simple tests
       run: |
