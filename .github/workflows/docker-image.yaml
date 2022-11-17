@@ -38,7 +38,9 @@ jobs:
     - name: Checkout sources
       uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag docker.io/pamiel/books-catalog:${{ env.DOCKER_IMAGE_TAG }}
+      run: |
+        docker build . --file Dockerfile \
+            --tag docker.io/pamiel/books-catalog:${{ env.DOCKER_IMAGE_TAG }}
     - name: Run server
       run: |
         docker run --rm -p 9990:9990 -d docker.io/pamiel/books-catalog:${{ env.DOCKER_IMAGE_TAG }}
