@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MICRO_SERVICE_VERSION: "3.0"
-      DOCKER_IMAGE_TAG: ${{ env.MICRO_SERVICE_VERSION }}-${GITHUB_RUN_NUMBER}
+      DOCKER_IMAGE_TAG: "${{ env.MICRO_SERVICE_VERSION }}-${GITHUB_RUN_NUMBER}"
 
     steps:
     - name: Checkout sources
