@@ -3,9 +3,9 @@ name: Docker Image CI
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, master ]
 
 jobs:
   code-analysis:
@@ -32,6 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MICRO_SERVICE_VERSION: "3.0"
+      DOCKER_IMAGE_TAG: ${{ env.MICRO_SERVICE_VERSION }}-${GITHUB_RUN_NUMBER}
 
     steps:
     - name: Checkout sources
@@ -40,6 +41,7 @@ jobs:
       run: docker build . --file Dockerfile --tag docker.io/pamiel/books-catalog:${{ env.MICRO_SERVICE_VERSION }}-${GITHUB_RUN_NUMBER}
     - name: Run server
       run: |
+        echo ${{ env.DOCKER_IMAGE_TAG }}
         docker run --rm -p 9990:9990 -d docker.io/pamiel/books-catalog:${{ env.MICRO_SERVICE_VERSION }}-${GITHUB_RUN_NUMBER}
         sleep 1
     - name: Simple tests
