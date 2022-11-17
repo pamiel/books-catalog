@@ -10,10 +10,13 @@ on:
 jobs:
   build-docker:
     runs-on: ubuntu-latest
+    env:
+      MICRO_SERVICE_VERSION: "3.0"
+
     steps:
     - name: Checkout sources
       uses: actions/checkout@v3
     - name: Build the Docker image
       run: |
         docker build . --file Dockerfile \
-            --tag docker.io/pamiel/books-catalog:3.0
+            --tag docker.io/pamiel/books-catalog:${{ env.MICRO_SERVICE_VERSION }}-${GITHUB_RUN_NUMBER}
