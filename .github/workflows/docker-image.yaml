@@ -42,6 +42,8 @@ jobs:
     - name: Run server
       run: |
         echo ${{ env.DOCKER_IMAGE_TAG }}
+        echo ${{ env.MICRO_SERVICE_VERSION }}-${GITHUB_RUN_NUMBER}
+        echo ${MICRO_SERVICE_VERSION}-${GITHUB_RUN_NUMBER}
         docker run --rm -p 9990:9990 -d docker.io/pamiel/books-catalog:${{ env.MICRO_SERVICE_VERSION }}-${GITHUB_RUN_NUMBER}
         sleep 1
     - name: Simple tests
