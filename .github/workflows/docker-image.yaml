@@ -8,6 +8,25 @@ on:
     branches: [ main, master ]
 
 jobs:
+  code-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@v3
+
+    - name: Configure Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+
+    - name: Code linter
+      run: |
+        python -m pip install --upgrade pip
+        pip install pylint
+        cd src
+        pylint `ls -R | grep .py$ | xargs`
+
   build-docker:
     runs-on: ubuntu-latest
     env:
